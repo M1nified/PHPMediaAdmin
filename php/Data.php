@@ -2,14 +2,24 @@
 require 'autoload.php';
 class Data {
     private static $singletonInstance;
+    public $source;
     private function __construct(){
-        
+        auto_source();
     }
     public function getSingletonInstance(){
         if(!self::$singletonInstance){
             self::$singletonInstance = new self();
         }
         return self::$singletonInstance;
+    }
+    public function auto_source(){
+        if($PMA_CONFIG['mysql_inuse'] == true){
+            $source = new Sour_MySQL(
+                $PMA_CONFIG['mysql_schema'],
+                $PMA_CONFIG['mysql_location'].':'.$PMA_CONFIG['mysql_port'],
+                $PMA_CONFIG['mysql_username'],$PMA_CONFIG['mysql_password']
+            );
+        }
     }
 }
 

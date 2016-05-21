@@ -3,6 +3,7 @@
 $PMA_CONFIG = parse_ini_file(join(DIRECTORY_SEPARATOR,array(dirname(__FILE__),"..","..","pma.ini")));
 
 $required_fields = [
+    "mysql_inuse",
     "mysql_location",
     "mysql_port",
     "mysql_username",
@@ -21,3 +22,5 @@ if(sizeof($failures)>0){
     throw new Exception("pma.ini failed to load all required params. Missing params are: "
     .join(' ,',$failures), 100);
 }
+
+print_r($PMA_CONFIG);
