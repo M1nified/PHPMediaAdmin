@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require 'autoload.php';
 class Data {
     private static $singletonInstance;
     private function __construct(){
