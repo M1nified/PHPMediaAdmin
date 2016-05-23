@@ -12,7 +12,7 @@ require_once realpath('~/../../../php/autoload.php');
         <div class="panel-body">
             <div class="form-group input-group">
               <span class="input-group-addon" id="filename{{$index}}"><?php echo $GLOBALS['PMA_CONFIG']['files_location']; ?></span>
-              <input type="text" name="file_name" class="form-control" placeholder="File name" aria-describedby="filename{{$index}}" ng-model="file.filename" required>
+              <input type="text" name="file_name" class="form-control" placeholder="File name" aria-describedby="filename{{$index}}" ng-model="file.filename">
             </div>
             <div class="form-group input-group">
               <span class="input-group-addon" id="file{{$index}}">File: </span>
