@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="MediaAdmin">
+  <head>
+    <meta charset="utf-8">
+    <title>PHPMediaAdmin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+
+    <script src="angular/app.js"></script>
+    <script src="angular/controller/NavCtrl.js"></script>
+    <script src="angular/controller/AddFileCtrl.js"></script>
+
+    <script src="angular/routes.js"></script>
+
+    <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body style="padding:1em;">
+    <div class="" ng-controller="NavCtrl">
+      <h1>PHPMediaAdmin</h1>
+      <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{active : (path === '/add')}"><a href="#/add">Add file</a></li>
+        <li role="presentation" ng-class="{active : (path === '/find')}"><a href="#/find">Find</a></li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div ng-view class=""><div>
+  </body>
+</html>
