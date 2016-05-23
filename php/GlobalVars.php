@@ -36,4 +36,12 @@ class Post
     return $tree;
   }
 }
-?>
+
+class Helper{
+  public static function pathNormalize($path){
+    $path = str_replace("/",DIRECTORY_SEPARATOR,$path);
+    $path = str_replace("\\",DIRECTORY_SEPARATOR,$path);
+    $regex = '/\\'.DIRECTORY_SEPARATOR.'\\'.DIRECTORY_SEPARATOR.'+/i';
+    $path = preg_replace($regex,DIRECTORY_SEPARATOR,$path);
+  }
+}

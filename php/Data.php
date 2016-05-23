@@ -1,5 +1,6 @@
 <?php
 require_once 'autoload.php';
+require_once 'GlobalVars.php';
 // global $PMA_CONFIG;
 print_r($PMA_CONFIG);
 class Data {
@@ -33,12 +34,7 @@ abstract class Source{
     public function makeFileLocation($file_location){
         print($file_location);
         $path = $GLOBALS['PMA_CONFIG']['files_location'].DIRECTORY_SEPARATOR.$file_location;
-        $path = str_replace("/",DIRECTORY_SEPARATOR,$path);
-        $path = str_replace("\\",DIRECTORY_SEPARATOR,$path);
-        $regex = '/\\'.DIRECTORY_SEPARATOR.'\\'.DIRECTORY_SEPARATOR.'+/i';
-        var_dump($regex);
-        $path = preg_replace($regex,DIRECTORY_SEPARATOR,$path);
-        var_dump($path);
+        $path = Helper::pathNormalize($path);
         //$path = realpath($path);
         return $path;
     }
