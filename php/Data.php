@@ -45,6 +45,10 @@ abstract class Source{
     public function makeKeywords($keywords){
         return $keywords;
     }
+    public function makeMask($file_location){
+        $mask = md5($file_location);
+        return $mask;
+    }
 }
 
 class Sour_MySQL extends Source{
@@ -77,8 +81,9 @@ class Sour_MySQL extends Source{
         $fl = self::makeFileLocation($file_location);
         print($fl);
         $kw = self::makeKeywords($keywords);
+        $mask = self::makeMask($file_location);
         $this->db->insert(self::getTab('file'),[
-            'file_location' => $fl, 'keywords' => $kw
+            'file_location' => $fl, 'keywords' => $kw, 'mask' => $mask
         ]);
     }
     public function deleteFile($id){
