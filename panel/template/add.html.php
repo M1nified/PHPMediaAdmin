@@ -4,7 +4,8 @@ require_once realpath('~/../../../php/autoload.php');
 <div class="">
   <div class="navbar navbar-default">
     <p class="navbar-text">Actions:</p>
-    <button class="btn btn-primary navbar-btn" ng-click="addFileSpot()">Add file</button>
+    <button class="btn btn-primary navbar-btn" ng-click="addFileSpot()" title="Upload and link file">Add file</button>
+    <button class="btn btn-primary navbar-btn" ng-click="addLinkSpot()" title="Add link to already uploaded file">Add link</button>
   </div>
   <div class="">
       <div class="panel panel-default" ng-repeat="file in files">
