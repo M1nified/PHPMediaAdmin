@@ -1,29 +1,30 @@
 <?php
+ob_start();
 require_once realpath('../../php/autoload.php');
 require_once realpath('../../php/Data.php');
 require_once realpath('../../php/GlobalVars.php');
+ob_clean();
 
-function getDestination($tmp_name,$name){
-    if($filename && sizeof($_FILES['files'])>1){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].DIRECTORY_SEPARATOR.$filename.'-'.$key;
+header('Content-type: application/json');
+
+function getDestination($tmp_name,$filename,$len,$key){
+    if($filename && $len>1){
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename.'-'.$key;
     }elseif($filename){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].DIRECTORY_SEPARATOR.$filename;
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename;
     }else{
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].DIRECTORY_SEPARATOR.$name;
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename;
     }
+    $destination = $_SERVER['DOCUMENT_ROOT'].'/'.$destination;
     $destination = Helper::pathNormalize($destination);
     return $destination;
 }
 
-header('Content-type: application/json');
-
 $data = Data::getSingletonInstance();
 
-print_r($_POST);
-print_r(sizeof($_FILES));
-print_r(sizeof($_POST));
-parse_str($_POST,$data);
-print_r($_FILES['files']);
+// print_r($_POST);
+// parse_str($_POST,$data);
+// print_r($_FILES['files']);
 
 
 if(Post::contains('filename')){
@@ -38,16 +39,16 @@ if(Post::contains('keywords')){
     die();
 }
 
-
 foreach ($_FILES['files']['error'] as $key => $error) {
     if($error != UPLOAD_ERR_OK){
         throw new Exception("Upload error ".$error, 202);
     }
     $tmp_name = $_FILES['files']['tmp_name'][$key];
     $name = $_FILES['files']['name'][$key];
-    $destination = getDestination($tmp_name,$name);
+    $destination = getDestination($tmp_name,$name,sizeof($_FILES['files']),$key);
     if(!move_uploaded_file($tmp_name,$destination)){
+    // if(!copy($tmp_name,$destination)){
         throw new Exception("Error on move_uploaded_file", 201);
     }
-    
+    $data->conn->addFile($destination,$keywords);
 }

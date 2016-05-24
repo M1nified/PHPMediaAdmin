@@ -12,7 +12,7 @@ require_once realpath('~/../../../php/autoload.php');
         <form class="" method="post" ng-submit="uploadFile($event,$index)">
         <div class="panel-body">
             <div class="form-group input-group">
-              <span class="input-group-addon" id="filename{{$index}}"><?php echo $GLOBALS['PMA_CONFIG']['files_location']; ?></span>
+              <span class="input-group-addon" id="filename{{$index}}"><?php echo $GLOBALS['PMA_CONFIG']['files_location']; ?>/</span>
               <input type="text" name="file_name" class="form-control" placeholder="File name" aria-describedby="filename{{$index}}" ng-model="file.filename">
             </div>
             <div class="form-group input-group">
@@ -26,8 +26,8 @@ require_once realpath('~/../../../php/autoload.php');
             <button class="btn btn-danger" ng-click="files.splice($index,1)">Cancel</button>
             <input type="submit" class="btn btn-success" value="Upload">
         </div>
+      </form>
       </div>
-    </form>
     <button class="btn btn-success" ng-show="files.length>0">Upload all files</button>
   </div>
 </div>

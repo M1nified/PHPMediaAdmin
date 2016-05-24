@@ -1,5 +1,8 @@
 tests
-panel\styles\boostrap\node_modules\*
+panel/styles/boostrap/node_modules/*
+.sass-cache
+web.config
+storage/*
 
 # Windows image file caches
 Thumbs.db

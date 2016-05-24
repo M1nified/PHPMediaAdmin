@@ -33,7 +33,7 @@ abstract class Source{
     
     public function makeFileLocation($file_location){
         print($file_location);
-        $path = $GLOBALS['PMA_CONFIG']['files_location'].DIRECTORY_SEPARATOR.$file_location;
+        $path = str_replace($_SERVER['DOCUMENT_ROOT'],'',$file_location);
         $path = Helper::pathNormalize($path);
         //$path = realpath($path);
         return $path;
@@ -73,11 +73,11 @@ class Sour_MySQL extends Source{
         return $GLOBALS['PMA_CONFIG']['mysql_table_prefix'].$tabname;
     }
     
-    public function addFile($file_location,$keywords,$file){
+    public function addFile($file_location,$keywords){
         $fl = self::makeFileLocation($file_location);
         print($fl);
         $kw = self::makeKeywords($keywords);
-        $mask = self::makeMask($file_location);
+        $mask = self::makeMask($fl);
         $this->db->insert(self::getTab('file'),[
             'file_location' => $fl, 'keywords' => $kw, 'mask' => $mask
         ]);

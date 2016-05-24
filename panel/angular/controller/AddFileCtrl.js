@@ -1,7 +1,7 @@
 "use strict";
 
-app.controller('AddFileCtrl',['$scope',function($scope){
-    console.log('addFileCtrl');
+angular.module('MediaAdmin').controller('AddFileCtrl',['$scope',function($scope){
+    console.log('AddFileCtrl');
     let files = [];
     let addFileSpot = function AddFileCtrl_addFileSpot() {
         console.log('AddFileCtrl_addFileSpot');
