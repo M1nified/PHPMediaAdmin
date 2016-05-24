@@ -9,11 +9,11 @@ header('Content-type: application/json');
 
 function getDestination($tmp_name,$name,$len,$key){
     if($name && $len>1){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name.'-'.$key;
+        $destination = $GLOBALS['PMA_CONFIG']['files_dir'].'/'.$name.'-'.$key;
     }elseif($name){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name;
+        $destination = $GLOBALS['PMA_CONFIG']['files_dir'].'/'.$name;
     }else{
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name;
+        $destination = $GLOBALS['PMA_CONFIG']['files_dir'].'/'.$name;
     }
     $destination = $_SERVER['DOCUMENT_ROOT'].'/'.$destination;
     $destination = Helper::pathNormalize($destination);

@@ -28,7 +28,7 @@ require_once realpath('~/../../../php/autoload.php');
       <thead>
       <tr>
         <th>
-          id
+          Id
         </th>
         <th>
           Keywords
@@ -53,7 +53,16 @@ require_once realpath('~/../../../php/autoload.php');
           {{row.file_location}}
         </td>
         <td>
-          <input type="text" ng-value="row.mask" readonly>
+          <div class="form-inline">
+            <div class="input-group">
+              <div class="input-group-addon">Coded:</div>
+              <input type="text" class="form-control" ng-value="'http://<?php printGetfilePath(); ?>?l='+row.mask" readonly>
+            </div>
+            <div class="input-group">
+              <div class="input-group-addon">Normal:</div>
+              <input type="text" class="form-control" ng-value="'http://<?php echo "{$_SERVER['HTTP_HOST']}"; ?>'+row.file_location" readonly>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>
