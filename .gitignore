@@ -3,6 +3,7 @@ panel/styles/boostrap/node_modules/*
 .sass-cache
 web.config
 storage/*
+App_Data
 
 # Windows image file caches
 Thumbs.db
