@@ -7,13 +7,13 @@ ob_clean();
 
 header('Content-type: application/json');
 
-function getDestination($tmp_name,$filename,$len,$key){
-    if($filename && $len>1){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename.'-'.$key;
-    }elseif($filename){
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename;
+function getDestination($tmp_name,$name,$len,$key){
+    if($name && $len>1){
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name.'-'.$key;
+    }elseif($name){
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name;
     }else{
-        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$filename;
+        $destination = $GLOBALS['PMA_CONFIG']['files_location'].'/'.$name;
     }
     $destination = $_SERVER['DOCUMENT_ROOT'].'/'.$destination;
     $destination = Helper::pathNormalize($destination);
@@ -44,8 +44,8 @@ foreach ($_FILES['files']['error'] as $key => $error) {
         throw new Exception("Upload error ".$error, 202);
     }
     $tmp_name = $_FILES['files']['tmp_name'][$key];
-    $name = $_FILES['files']['name'][$key];
-    $destination = getDestination($tmp_name,$name,sizeof($_FILES['files']),$key);
+    $name = $filename ? $filename : $_FILES['files']['name'][$key];
+    $destination = getDestination($tmp_name,$name,sizeof($_FILES['files']['error']),$key);
     if(!move_uploaded_file($tmp_name,$destination)){
     // if(!copy($tmp_name,$destination)){
         throw new Exception("Error on move_uploaded_file", 201);
