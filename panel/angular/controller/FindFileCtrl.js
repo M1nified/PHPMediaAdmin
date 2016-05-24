@@ -2,7 +2,10 @@
 
 angular.module('MediaAdmin').controller('FindFileCtrl',['$scope',function($scope){
     console.log('FindFileCtrl');
-    let find = {}
+    let find = {};
+    let search = {
+        results : []
+    };
     let objToUrl = (obj)=>{
         let str = [];
         for(let key of Object.keys(obj)){
@@ -20,7 +23,13 @@ angular.module('MediaAdmin').controller('FindFileCtrl',['$scope',function($scope
         xhr.open('POST','action/findFiles.php'+query,true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.onload = () => {
-            console.log(xhr.response)
+            console.log(xhr)
+             if(xhr.status === 200){
+                 let results = JSON.parse(xhr.responseText);
+                 console.log(results);
+                 search.results = results;
+                 $scope.$apply();
+             }
         }
         xhr.onerror = (e) => {
             console.error(e);
@@ -32,5 +41,6 @@ angular.module('MediaAdmin').controller('FindFileCtrl',['$scope',function($scope
     }
     
     $scope.find = find;
+    $scope.search = search;
     $scope.runFilter = runFilter;
 }])

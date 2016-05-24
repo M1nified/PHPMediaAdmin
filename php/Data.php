@@ -32,7 +32,6 @@ abstract class Source{
     abstract public function listFiles($dir);
     
     public function makeFileLocation($file_location){
-        print($file_location);
         $path = str_replace($_SERVER['DOCUMENT_ROOT'],'',$file_location);
         $path = Helper::pathNormalize($path);
         //$path = realpath($path);
@@ -75,7 +74,7 @@ class Sour_MySQL extends Source{
     
     public function addFile($file_location,$keywords){
         $fl = self::makeFileLocation($file_location);
-        print($fl);
+        // print($fl);
         $kw = self::makeKeywords($keywords);
         $mask = self::makeMask($fl);
         $this->db->insert(self::getTab('file'),[
@@ -88,5 +87,24 @@ class Sour_MySQL extends Source{
                 "id" => $id
             ]
         ]);
+    }
+    public function findFile($keywords,$since,$until){
+        $filecols = [
+            'id',
+            'file_location',
+            'keywords',
+            'creation_date',
+            'mask'
+        ];
+        $records = [];
+        if($keywords && !$since && !$until){
+            $records = $this->db->select(self::getTab('file'),$filecols,[
+                "MATCH" => [
+                    "columns" => ["file_location","keywords"],
+                    "keyword" => $keywords
+                ]
+            ]);
+        }
+        return $records;
     }
 }

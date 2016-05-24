@@ -37,6 +37,17 @@ class Post
   }
 }
 
+class Get{
+  public static function contains(){
+    $names = func_get_args();
+    foreach($names as $name){
+      if(!is_scalar($_GET[$name]) || !isset($_GET[$name]) || empty($_GET[$name])){
+        return false;
+      }
+    }
+    return true;
+  }
+}
 class Helper{
   public static function pathNormalize($path){
     $path = str_replace("/",DIRECTORY_SEPARATOR,$path);

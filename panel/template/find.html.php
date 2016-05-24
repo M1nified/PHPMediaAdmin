@@ -24,6 +24,39 @@ require_once realpath('~/../../../php/autoload.php');
     <input class="btn btn-success" type="submit" value="Find!">
   </form>
   <div class="">
-
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>
+          id
+        </th>
+        <th>
+          Keywords
+        </th>
+        <th>
+          Path
+        </th>
+        <th>
+          Link
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in search.results">
+        <td>
+          {{row.id}}
+        </td>
+        <td>
+          {{row.keywords}}
+        </td>
+        <td>
+          {{row.file_location}}
+        </td>
+        <td>
+          <input type="text" ng-value="row.mask" readonly>
+        </td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 </div>
