@@ -41,7 +41,7 @@ abstract class Source{
         return $keywords;
     }
     public function makeMask($file_location){
-        $mask = md5($file_location);
+        $mask = md5($file_location.uniqid());
         return $mask;
     }
 }

@@ -27,29 +27,29 @@ $data = Data::getSingletonInstance();
 // print_r($_FILES['files']);
 
 
-if(Post::contains('filename')){
-    $filename = $_POST['filename'];
-}else{
-    $filename = null;
-}
 if(Post::contains('keywords')){
     $keywords = $_POST['keywords'];
 }else{
     $keywords = null;
     die();
 }
-
-foreach ($_FILES['files']['error'] as $key => $error) {
+if(Post::contains('files')){
+    $files = explode(";",$_POST['files']);
+    $files = array_map(function($file){
+        return trim($file);
+    },$files);
+}else{
+    $files = null;
+    die();
+}
+// var_dump($_SERVER['DOCUMENT_ROOT']);
+foreach ($files as $key => $error) {
     if($error != UPLOAD_ERR_OK){
-        throw new Exception("Upload error ".$error, 202);
+        throw new Exception("Link error ".$error, 202);
     }
-    $tmp_name = $_FILES['files']['tmp_name'][$key];
-    $name = $filename ? $filename : $_FILES['files']['name'][$key];
-    $destination = getDestination($tmp_name,$name,sizeof($_FILES['files']['error']),$key);
-    if(!move_uploaded_file($tmp_name,$destination)){
-    // if(!copy($tmp_name,$destination)){
-        throw new Exception("Error on move_uploaded_file", 201);
+    if(!($file_location = realpath($_SERVER['DOCUMENT_ROOT'].'/'.$files[$key]))){
+        throw new Exception("No such file as \'".$files[$key].'\'',203);
     }
-    $data->conn->addFile($destination,$keywords);
+    $data->conn->addFile($file_location,$keywords);
 }
 print(json_encode(["result"=>true]));

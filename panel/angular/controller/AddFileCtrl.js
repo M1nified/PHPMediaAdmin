@@ -5,9 +5,12 @@ angular.module('MediaAdmin').controller('AddFileCtrl',['$scope',function($scope)
     let files = [];
     let addFileSpot = function AddFileCtrl_addFileSpot() {
         console.log('AddFileCtrl_addFileSpot');
-        files.push({});
+        files.push({type:'filespot'});
     };
-    let uploadFile = function AddFileCtrl_uploadFile(evt,index){
+    let addFileLink = function AddFileCtrl_addFileLink(){
+        files.push({type:'filelink'});
+    };
+    let uploadFile = function AddFileCtrl_uploadFile(evt,index,fileoffiles){
         evt.preventDefault();
         console.log('AddFileCtrl_uploadFile');
         let file = files[index];
@@ -34,8 +37,22 @@ angular.module('MediaAdmin').controller('AddFileCtrl',['$scope',function($scope)
          }
          xhr.send(fd);
     };
-    
+    let linkFile = function AddFileCtrl_linkFile(evt,index,fileoffiles){
+        let fd = new FormData();
+        fd.append('files',fileoffiles.files || '');
+        fd.append('keywords',fileoffiles.keywords || '');
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST','action/linkFiles.php',true);
+        xhr.onload = function(){
+            console.log(xhr.status);
+            console.log(xhr.response);
+        }
+        xhr.send(fd);
+    };
+
     $scope.files = files;
     $scope.addFileSpot = addFileSpot;
+    $scope.addFileLink = addFileLink;
     $scope.uploadFile = uploadFile;
+    $scope.linkFile = linkFile;
 }])
