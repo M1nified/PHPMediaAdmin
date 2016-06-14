@@ -40,7 +40,22 @@ require_once realpath('~/../../../php/autoload.php');
             <input type="text" name="keywords" class="form-control" placeholder="Keywords (space separated)" aria-describedby="file{{$index}}" ng-model="file.keywords" required>
           </div>
           <button class="btn btn-danger" ng-click="files.splice($index,1)">Cancel</button>
-          <input type="submit" class="btn btn-success" value="Upload">
+          <input type="submit" class="btn btn-success" value="Link">
+        </div>
+      </form>
+
+      <form method="post" ng-submit="linkUrl($event,$index,file)" ng-if="file.type==='link'">
+        <div class="panel-body">
+          <div class="form-group input-group">
+            <span class="input-group-addon" id="file{{$index}}">Link URL: </span>
+            <input type="text" name="url" class="form-control" placeholder="URL to be tracked" aria-describedby="file{{$index}}" ng-model="file.link" required>
+          </div>
+          <div class="form-group input-group">
+            <span class="input-group-addon" id="file{{$index}}">Keywords: </span>
+            <input type="text" name="keywords" class="form-control" placeholder="Keywords (space separated)" aria-describedby="file{{$index}}" ng-model="file.keywords" required>
+          </div>
+          <button class="btn btn-danger" ng-click="files.splice($index,1)">Cancel</button>
+          <input type="submit" class="btn btn-success" value="Link">
         </div>
       </form>
     </div>

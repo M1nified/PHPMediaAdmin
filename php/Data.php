@@ -81,6 +81,14 @@ class Sour_MySQL extends Source{
             'file_location' => $fl, 'keywords' => $kw, 'mask' => $mask
         ]);
     }
+    public function addUrl($url,$keywords){
+        $mask = self::makeMask($url);
+        $this->db->insert(self::getTab('file'),[
+            'file_location' => $url,
+            'keywords' => $kw,
+            'mask' => $mask
+        ]);
+    }
     public function deleteFile($id){
         $this->db->delete(self::getTab('file'),[
             "AND"=>[

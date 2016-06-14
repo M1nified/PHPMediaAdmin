@@ -2,12 +2,16 @@
 
 require 'vendor/autoload.php';
 
-// CREATE SCHEMA `phpmediaadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
-// CREATE TABLE `phpmediaadmin`.`pma_file` (
-//   `id` INT NOT NULL AUTO_INCREMENT,
-//   `file_location` VARCHAR(500) NULL,
-//   `keywords` VARCHAR(500) NULL,
-//   `creation_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-//   `mask` VARCHAR(100) NULL,
-//   PRIMARY KEY (`id`),
-//   UNIQUE INDEX `file_location_UNIQUE` (`file_location` ASC));
+$mysql_create_pma_file = "
+CREATE TABLE `pma_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_location` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `keywords` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `mask` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `file_location_UNIQUE` (`file_location`),
+  FULLTEXT KEY `fulltext` (`keywords`,`file_location`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+";
+
